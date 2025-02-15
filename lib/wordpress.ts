@@ -29,7 +29,7 @@ interface FetchOptions {
   };
 }
 
-function getUrl(path: string, query?: Record<string, any>) {
+function getUrl(path: string, query: Record<string, any> = {}) {
   const params = query ? querystring.stringify(query) : null;
   return `${baseUrl}${path}${params ? `?${params}` : ""}`;
 }
@@ -85,7 +85,7 @@ export async function getAllPosts(filterParams?: {
   search?: string;
 }): Promise<Post[]> {
   const query: Record<string, any> = {
-    _embed: true,
+    // _embed: true,
     per_page: 100,
   };
 
@@ -117,6 +117,7 @@ export async function getAllPosts(filterParams?: {
   }
 
   const url = getUrl("/wp-json/wp/v2/posts", query);
+
   return wordpressFetch<Post[]>(url, {
     next: {
       ...defaultFetchOptions.next,
