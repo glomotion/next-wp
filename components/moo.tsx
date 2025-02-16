@@ -16,7 +16,7 @@ export function Moo() {
         }
       }}
     >
-      Clear-cache
+      Revalidate
     </Button>
   );
 }
