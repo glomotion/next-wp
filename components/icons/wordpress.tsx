@@ -8,6 +8,7 @@ export function WordPressIcon({
   height?: number;
 }) {
   return (
+    // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
     <svg
       className={className}
       width={width}

@@ -65,6 +65,7 @@ async function wordpressFetch<T>(
   //   url.includes("?") ? "&" : "?"
   // }_ts=${Date.now()}`;
 
+  console.log("@@@@@@@@@ FETCHING @@@@@@@@@", url);
   const response = await fetch(url, {
     ...defaultFetchOptions,
     ...options,
