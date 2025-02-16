@@ -38,7 +38,8 @@ function getUrl(path: string, query: Record<string, any> = {}) {
 const defaultFetchOptions: FetchOptions = {
   next: {
     tags: ["wordpress"],
-    revalidate: 3600, // Revalidate every hour by default
+    // revalidate: 3600, // Revalidate every hour by default
+    revalidate: 1,
   },
 };
 
@@ -57,7 +58,7 @@ async function wordpressFetch<T>(
 ): Promise<T> {
   const userAgent = "Next.js WordPress Client";
 
-  console.log("@@@@@@@", url);
+  // console.log("@@@@@@@", url);
   const response = await fetch(url, {
     ...defaultFetchOptions,
     ...options,

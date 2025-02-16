@@ -18,6 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
+import { Moo } from "../components/moo";
 
 const font = FontSans({
   subsets: ["latin"],
@@ -81,7 +82,7 @@ const Nav = ({ className, children, id }: NavProps) => {
             className="dark:invert"
             width={42}
             height={26.44}
-          ></Image>
+          />
           <h2 className="text-sm">{siteConfig.site_name}</h2>
         </Link>
         {children}
@@ -98,6 +99,7 @@ const Nav = ({ className, children, id }: NavProps) => {
           <Button asChild className="hidden sm:flex">
             <Link href="https://github.com/9d8dev/next-wp">Get Started</Link>
           </Button>
+          <Moo />
           <MobileNav />
         </div>
       </div>
@@ -119,7 +121,7 @@ const Footer = () => {
                 className="dark:invert"
                 width={42}
                 height={26.44}
-              ></Image>
+              />
             </Link>
             <p>
               <Balancer>{siteConfig.site_description}</Balancer>
