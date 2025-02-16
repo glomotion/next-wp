@@ -32,10 +32,10 @@ export async function generateMetadata({
   // Strip HTML tags for description and limit length
   const description = page.excerpt?.rendered
     ? page.excerpt.rendered.replace(/<[^>]*>/g, "").trim()
-    : page.content.rendered
+    : `${page.content.rendered
         .replace(/<[^>]*>/g, "")
         .trim()
-        .slice(0, 200) + "...";
+        .slice(0, 200)}...`;
   ogUrl.searchParams.append("description", description);
 
   return {
@@ -77,6 +77,7 @@ export default async function Page({
       <Container>
         <Prose>
           <h2>{page.title.rendered}</h2>
+          {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
           <div dangerouslySetInnerHTML={{ __html: page.content.rendered }} />
         </Prose>
       </Container>

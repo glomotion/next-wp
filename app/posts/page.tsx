@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
 export const dynamic = "auto";
 // export const revalidate = 600;
-export const revalidate = 1;
+export const revalidate = 0;
 
 export default async function Page({
   searchParams,
@@ -56,7 +56,7 @@ export default async function Page({
   ]);
 
   // Handle pagination
-  const page = pageParam ? parseInt(pageParam, 10) : 1;
+  const page = pageParam ? Number.parseInt(pageParam, 10) : 1;
   const postsPerPage = 9;
   const totalPages = Math.ceil(posts.length / postsPerPage);
   const paginatedPosts = posts.slice(

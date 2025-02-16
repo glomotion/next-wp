@@ -1,19 +1,19 @@
 import type { NextRequest } from "next/server";
 import { revalidateWordPressData } from "../../../lib/wordpress";
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    await revalidateWordPressData();
+    await revalidateWordPressData([
+      "wordpress",
+      "post",
+      "posts",
+      "pages",
+      "post-hello-world",
+    ]);
     console.log("@@@@@@@@@ CACHE CLEARED @@@@@@@@@");
-    return new Response("Successfully revalidated all WP data", {
-      status: 200,
-    });
+    return Response.json({ message: "Successfully revalidated all WP data" });
   } catch (e: unknown) {
-    if (e instanceof Error) {
-      console.log(e.message);
-    }
-    return new Response("Failed to generate the image", {
-      status: 500,
-    });
+    console.error("Cache clear error:", e);
+    return Response.json({ message: "Failed to clear cache" }, { status: 500 });
   }
 }

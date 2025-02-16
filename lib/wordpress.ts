@@ -3,7 +3,7 @@
 // Types are imported from `wp.d.ts`
 
 import querystring from "query-string";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 import type {
   Post,
@@ -26,6 +26,7 @@ interface FetchOptions {
   next?: {
     revalidate?: number | false;
     tags?: string[];
+    cache?: "no-store" | "force-cache" | "no-cache" | "only-if-cached";
   };
 }
 
@@ -41,6 +42,7 @@ const defaultFetchOptions: FetchOptions = {
     tags: ["wordpress"],
     // revalidate: 3600, // Revalidate every hour by default
     revalidate: 0,
+    cache: "no-store",
   },
 };
 
@@ -58,8 +60,11 @@ async function wordpressFetch<T>(
   options: FetchOptions = {}
 ): Promise<T> {
   const userAgent = "Next.js WordPress Client";
+  // // Add timestamp to URL to prevent caching
+  // const timestampedUrl = `${url}${
+  //   url.includes("?") ? "&" : "?"
+  // }_ts=${Date.now()}`;
 
-  // console.log("@@@@@@@", url);
   const response = await fetch(url, {
     ...defaultFetchOptions,
     ...options,
@@ -135,7 +140,7 @@ export async function getPostById(id: number): Promise<Post> {
   const response = await wordpressFetch<Post>(url, {
     next: {
       ...defaultFetchOptions.next,
-      tags: ["wordpress", `post-${id}`],
+      tags: ["wordpress", "post", `post-${id}`],
     },
   });
 
@@ -147,7 +152,7 @@ export async function getPostBySlug(slug: string): Promise<Post> {
   const response = await wordpressFetch<Post[]>(url, {
     next: {
       ...defaultFetchOptions.next,
-      tags: ["wordpress", `post-${slug}`],
+      tags: ["wordpress", "post", `post-${slug}`],
     },
   });
 
@@ -279,7 +284,7 @@ export async function getPageById(id: number): Promise<Page> {
   const response = await wordpressFetch<Page>(url, {
     next: {
       ...defaultFetchOptions.next,
-      tags: ["wordpress", `page-${id}`],
+      tags: ["wordpress", "page", `page-${id}`],
     },
   });
 
@@ -291,7 +296,7 @@ export async function getPageBySlug(slug: string): Promise<Page> {
   const response = await wordpressFetch<Page[]>(url, {
     next: {
       ...defaultFetchOptions.next,
-      tags: ["wordpress", `page-${slug}`],
+      tags: ["wordpress", "page", `page-${slug}`],
     },
   });
 
