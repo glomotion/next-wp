@@ -29,7 +29,7 @@ interface FetchOptions {
   };
 }
 
-function getUrl(path: string, query: Record<string, any> = {}) {
+function getUrl(path: string, query: Record<string, unknown> = {}) {
   const params = query ? querystring.stringify(query) : null;
   return `${baseUrl}${path}${params ? `?${params}` : ""}`;
 }
@@ -38,8 +38,7 @@ function getUrl(path: string, query: Record<string, any> = {}) {
 const defaultFetchOptions: FetchOptions = {
   next: {
     tags: ["wordpress"],
-    // revalidate: 3600, // Revalidate every hour by default
-    revalidate: 1,
+    revalidate: 3600, // Revalidate every hour by default
   },
 };
 
@@ -86,7 +85,7 @@ export async function getAllPosts(filterParams?: {
   category?: string;
   search?: string;
 }): Promise<Post[]> {
-  const query: Record<string, any> = {
+  const query: Record<string, unknown> = {
     // _embed: true,
     per_page: 100,
   };
