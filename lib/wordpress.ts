@@ -29,7 +29,8 @@ interface FetchOptions {
   };
 }
 
-function getUrl(path: string, query: Record<string, unknown> = {}) {
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+function getUrl(path: string, query: Record<string, any> = {}) {
   const params = query ? querystring.stringify(query) : null;
   return `${baseUrl}${path}${params ? `?${params}` : ""}`;
 }
@@ -38,7 +39,8 @@ function getUrl(path: string, query: Record<string, unknown> = {}) {
 const defaultFetchOptions: FetchOptions = {
   next: {
     tags: ["wordpress"],
-    revalidate: 3600, // Revalidate every hour by default
+    // revalidate: 3600, // Revalidate every hour by default
+    revalidate: 0,
   },
 };
 
@@ -85,7 +87,8 @@ export async function getAllPosts(filterParams?: {
   category?: string;
   search?: string;
 }): Promise<Post[]> {
-  const query: Record<string, unknown> = {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const query: Record<string, any> = {
     // _embed: true,
     per_page: 100,
   };
