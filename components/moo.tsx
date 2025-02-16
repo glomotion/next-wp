@@ -1,6 +1,5 @@
 "use client";
 
-import { getPostBySlug } from "../lib/wordpress";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 

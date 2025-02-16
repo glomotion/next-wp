@@ -5,7 +5,8 @@ import { siteConfig } from "@/site.config";
 import type { Metadata } from "next";
 
 // Revalidate pages every hour
-export const revalidate = 3600;
+// export const revalidate = 3600;
+export const revalidate = 30;
 
 export async function generateStaticParams() {
   const pages = await getAllPages();
