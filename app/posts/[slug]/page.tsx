@@ -93,8 +93,9 @@ export default async function Page({
           <h1>
             <Balancer>
               <span
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
                 dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-              ></span>
+              />
             </Balancer>
           </h1>
           <div className="flex justify-between items-center gap-4 text-sm mb-4">
@@ -129,6 +130,7 @@ export default async function Page({
           )}
         </Prose>
 
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
         <Article dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
       </Container>
     </Section>
