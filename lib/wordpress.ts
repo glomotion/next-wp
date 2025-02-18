@@ -41,7 +41,7 @@ const defaultFetchOptions: FetchOptions = {
   next: {
     tags: ["wordpress"],
     // revalidate: 3600, // Revalidate every hour by default
-    revalidate: 0,
+    revalidate: 1,
     cache: "no-store",
   },
 };
