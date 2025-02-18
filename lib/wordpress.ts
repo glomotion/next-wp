@@ -54,19 +54,23 @@ class WordPressAPIError extends Error {
   }
 }
 
+const isDev = process.env.NODE_ENV === "development";
+
 // Utility function for making WordPress API requests
 async function wordpressFetch<T>(
   url: string,
   options: FetchOptions = {}
 ): Promise<T> {
   const userAgent = "Next.js WordPress Client";
-  // // Add timestamp to URL to prevent caching
-  // const timestampedUrl = `${url}${
-  //   url.includes("?") ? "&" : "?"
-  // }_ts=${Date.now()}`;
+  // @TODO: this is a HACK to prevent caching when in dev mode,
+  // we should try to find a better solution
+  // Add timestamp to URL to prevent caching
+  const timestampedUrl = `${url}${
+    url.includes("?") ? "&" : "?"
+  }_ts=${Date.now()}`;
 
-  console.log("@@@@@@@@@ FETCHING @@@@@@@@@", url);
-  const response = await fetch(url, {
+  console.log("@@@@@@@@@ FETCHING @@@@@@@@@", timestampedUrl);
+  const response = await fetch(isDev ? timestampedUrl : url, {
     ...defaultFetchOptions,
     ...options,
     headers: {
