@@ -29,11 +29,6 @@ export const metadata: Metadata = {
   description: "Browse all our blog posts",
 };
 
-// export const dynamic = "auto";
-// export const revalidate = 600;
-// export const revalidate = 30;
-export const dynamic = "force-dynamic";
-
 export default async function Page({
   searchParams,
 }: {

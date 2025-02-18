@@ -6,8 +6,7 @@ import type { Metadata } from "next";
 
 // Revalidate pages every hour
 // export const revalidate = 3600;
-// export const revalidate = 30;
-export const dynamic = "force-dynamic";
+export const revalidate = 1;
 
 export async function generateStaticParams() {
   const pages = await getAllPages();

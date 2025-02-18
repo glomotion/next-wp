@@ -40,9 +40,7 @@ function getUrl(path: string, query: Record<string, any> = {}) {
 const defaultFetchOptions: FetchOptions = {
   next: {
     tags: ["wordpress"],
-    // revalidate: 3600, // Revalidate every hour by default
-    revalidate: 1,
-    cache: "no-store",
+    revalidate: 3600, // Revalidate every hour by default
   },
 };
 
@@ -54,7 +52,8 @@ class WordPressAPIError extends Error {
   }
 }
 
-const isDev = process.env.NODE_ENV === "development";
+export const isDev = process.env.NODE_ENV === "development";
+// export const isDev = false;
 
 // Utility function for making WordPress API requests
 async function wordpressFetch<T>(
@@ -68,9 +67,10 @@ async function wordpressFetch<T>(
   const timestampedUrl = `${url}${
     url.includes("?") ? "&" : "?"
   }_ts=${Date.now()}`;
+  const urlToFetch = isDev ? timestampedUrl : url;
 
-  console.log("@@@@@@@@@ FETCHING @@@@@@@@@", timestampedUrl);
-  const response = await fetch(isDev ? timestampedUrl : url, {
+  console.log("@@@@@@@@@ FETCHING @@@@@@@@@", urlToFetch);
+  const response = await fetch(urlToFetch, {
     ...defaultFetchOptions,
     ...options,
     headers: {
