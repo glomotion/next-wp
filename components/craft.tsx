@@ -237,6 +237,8 @@ export const Article = ({
 	dangerouslySetInnerHTML,
 }: BaseProps & HTMLProps) => (
 	<article
+		// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+		// biome-ignore lint/security/noDangerouslySetInnerHtmlWithChildren: <explanation>
 		dangerouslySetInnerHTML={dangerouslySetInnerHTML}
 		className={cn(
 			articleTypographyStyles,
@@ -257,6 +259,8 @@ export const Prose = ({
 	dangerouslySetInnerHTML,
 }: BaseProps & HTMLProps) => (
 	<div
+		// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+		// biome-ignore lint/security/noDangerouslySetInnerHtmlWithChildren: <explanation>
 		dangerouslySetInnerHTML={dangerouslySetInnerHTML}
 		className={cn(baseTypographyStyles, styles.layout.spacing, className)}
 		id={id}

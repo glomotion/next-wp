@@ -49,6 +49,7 @@ export async function PostCard({ post }: { post: Post }) {
 					)}
 				</div>
 				<div
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
 					dangerouslySetInnerHTML={{
 						__html: post.title?.rendered || "Untitled Post",
 					}}
@@ -56,9 +57,14 @@ export async function PostCard({ post }: { post: Post }) {
 				/>
 				<div
 					className="text-sm"
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
 					dangerouslySetInnerHTML={{
 						__html: post.excerpt?.rendered
-							? `${post.excerpt.rendered.split(" ").slice(0, 12).join(" ").trim()}...`
+							? `${post.excerpt.rendered
+									.split(" ")
+									.slice(0, 12)
+									.join(" ")
+									.trim()}...`
 							: "No excerpt available",
 					}}
 				/>
