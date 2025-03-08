@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const pages = await getAllPages();
-
   return (
     <Section>
       <Container className="space-y-6">

@@ -97,8 +97,7 @@ export async function getAllPosts(filterParams?: {
   category?: string;
   search?: string;
 }): Promise<Post[]> {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const query: Record<string, any> = {
+  const query: Record<string, string | number> = {
     // _embed: true,
     per_page: 100,
   };
@@ -273,14 +272,16 @@ export async function getTagBySlug(slug: string): Promise<Tag> {
 }
 
 export async function getAllPages(): Promise<Page[]> {
-  const url = getUrl("/wp-json/wp/v2/pages");
+  const query: Record<string, string | number> = {
+    per_page: 60,
+  };
+  const url = getUrl("/wp-json/wp/v2/pages", query);
   const response = await wordpressFetch<Page[]>(url, {
     next: {
       ...defaultFetchOptions.next,
       tags: ["wordpress", "pages"],
     },
   });
-
   return response;
 }
 
